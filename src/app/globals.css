@@ -375,6 +375,11 @@ main
   font-weight: 400;
 }
 
+.hero h1 em .text-reveal__mask {
+  padding-right: 0.14em;
+  margin-right: -0.14em;
+}
+
 .hero__bottom {
   display: flex;
   max-width: 780px;
@@ -1550,8 +1555,8 @@ main
 .text-reveal__mask {
   display: inline-block;
   overflow: hidden;
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
+  padding-bottom: 0.22em;
+  margin-bottom: -0.22em;
   vertical-align: bottom;
 }
 
