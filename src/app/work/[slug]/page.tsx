@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowDown, ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { notFound } from "next/navigation";
+import AtmosphericBg from "@/components/AtmosphericBg";
 import MotionShell, { AmbientParticles, Reveal } from "@/components/motion-shell";
+import TextReveal from "@/components/TextReveal";
 import { getProject, projects } from "@/lib/projects";
 
 type CaseStudyPageProps = {
@@ -39,6 +41,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   return (
     <MotionShell>
       <main className={`case-study case-study--${project.art}`}>
+        <AtmosphericBg />
         <AmbientParticles />
         <div className="grain" aria-hidden="true" />
         <header className="case-header section-wrap">
@@ -57,7 +60,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             <span className="eyebrow">
               {project.number} / 04&nbsp;&nbsp; · &nbsp;&nbsp;{project.type}
             </span>
-            <h1>{project.name}</h1>
+            <TextReveal as="h1">{project.name}</TextReveal>
             <p>{project.description}</p>
             <span className={`case-status${project.status === "In development" ? " case-status--upcoming" : ""}`}>
               <i />
@@ -89,7 +92,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         <section className="case-overview section-wrap" id="overview">
           <Reveal className="case-overview__label">
             <span className="eyebrow">The brief</span>
-            <h2>A clear idea,<br /><em>carefully made.</em></h2>
+            <TextReveal>A clear idea,<br /><em>carefully made.</em></TextReveal>
           </Reveal>
           <div className="case-overview__content">
             <Reveal>
@@ -110,7 +113,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         <section className="case-details section-wrap">
           <Reveal className="case-details__heading">
             <span className="eyebrow">A closer look</span>
-            <h2>Considered at every step.</h2>
+            <TextReveal>Considered at every step.</TextReveal>
           </Reveal>
           <div className="case-details__grid">
             <Reveal className="case-highlights">

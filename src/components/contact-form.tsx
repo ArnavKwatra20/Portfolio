@@ -2,6 +2,7 @@
 
 import { ArrowUpRight, Check } from "lucide-react";
 import { FormEvent, useState } from "react";
+import Magnetic from "./Magnetic";
 
 type ContactFormProps = {
   emailAddress?: string;
@@ -129,10 +130,12 @@ export default function ContactForm({ emailAddress }: ContactFormProps) {
           {submitted && <Check size={14} aria-hidden="true" />}
           {notice}
         </p>
-        <button className="button button--primary" type="submit">
-          Send an enquiry
-          <ArrowUpRight size={15} strokeWidth={1.6} />
-        </button>
+        <Magnetic>
+          <button className="button button--primary" type="submit">
+            Send an enquiry
+            <ArrowUpRight size={15} strokeWidth={1.6} />
+          </button>
+        </Magnetic>
       </div>
     </form>
   );

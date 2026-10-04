@@ -11,8 +11,12 @@ import {
   MoveUpRight,
 } from "lucide-react";
 import ContactForm from "@/components/contact-form";
+import AtmosphericBg from "@/components/AtmosphericBg";
+import Magnetic from "@/components/Magnetic";
+import Navbar from "@/components/Navbar";
 import MotionShell, { AmbientParticles, Reveal } from "@/components/motion-shell";
 import Projects from "@/components/projects";
+import TextReveal from "@/components/TextReveal";
 
 const services = [
   {
@@ -58,27 +62,11 @@ export default function Home() {
   return (
     <MotionShell>
       <main>
+        <AtmosphericBg />
         <AmbientParticles />
         <div className="grain" aria-hidden="true" />
 
-        <header className="site-header">
-          <a className="wordmark" href="#top" aria-label="Go to top">
-            <span className="wordmark__symbol">AK</span>
-            <span className="wordmark__label">
-              Arnav
-              <br />
-              Kwatra
-            </span>
-          </a>
-          <nav className="main-nav" aria-label="Main navigation">
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#work">Work</a>
-          </nav>
-          <a className="header-contact" href="#contact">
-            Let&apos;s talk <ArrowUpRight size={14} strokeWidth={1.5} />
-          </a>
-        </header>
+        <Navbar />
 
         <section className="hero section-wrap" id="top" aria-labelledby="hero-title">
           <div className="hero__atmosphere" aria-hidden="true" />
@@ -90,11 +78,11 @@ export default function Home() {
               </p>
             </Reveal>
             <Reveal delay={0.08}>
-              <h1 id="hero-title">
+              <TextReveal as="h1" id="hero-title">
                 Functional <em>art</em>
                 <br />
                 for the digital age.
-              </h1>
+              </TextReveal>
             </Reveal>
             <Reveal delay={0.16}>
               <div className="hero__bottom">
@@ -102,10 +90,12 @@ export default function Home() {
                   Thoughtful design and dependable engineering for ideas that
                   deserve to be out in the world.
                 </p>
-                <a className="button button--primary" href="#contact">
-                  Let&apos;s build something good
-                  <MoveUpRight size={15} strokeWidth={1.6} />
-                </a>
+                <Magnetic>
+                  <a className="button button--primary" href="#contact">
+                    Let&apos;s build something good
+                    <MoveUpRight size={15} strokeWidth={1.6} />
+                  </a>
+                </Magnetic>
               </div>
             </Reveal>
           </div>
@@ -125,13 +115,13 @@ export default function Home() {
           </Reveal>
           <div className="about__grid">
             <Reveal>
-              <h2>
+              <TextReveal>
                 The best digital
                 <br />
                 experiences feel
                 <br />
                 <em>effortless.</em>
-              </h2>
+              </TextReveal>
             </Reveal>
             <Reveal delay={0.1} className="about__copy">
               <p className="about__lead">
@@ -157,7 +147,7 @@ export default function Home() {
           <Reveal className="section-heading">
             <div>
               <span className="eyebrow">What I can help with</span>
-              <h2>Good ideas, made real.</h2>
+              <TextReveal>Good ideas, made real.</TextReveal>
             </div>
             <p>
               A considered partner from early thinking through launch and
@@ -185,7 +175,7 @@ export default function Home() {
           <div className="section-wrap">
             <Reveal className="stack__heading">
               <span className="eyebrow">A few tools I reach for</span>
-              <h2 id="stack-title">The right tool, for the right reason.</h2>
+              <TextReveal id="stack-title">The right tool, for the right reason.</TextReveal>
             </Reveal>
           </div>
           <div
@@ -217,11 +207,11 @@ export default function Home() {
         <section className="contact section-wrap section-space" id="contact">
           <Reveal className="contact__intro">
             <span className="eyebrow">Have something in mind?</span>
-            <h2>
+            <TextReveal>
               Let&apos;s make
               <br />
               something <em>matter.</em>
-            </h2>
+            </TextReveal>
             <p>
               Tell me a little about what you&apos;re working on. I&apos;ll get
               back to you with a thoughtful next step.
@@ -296,21 +286,22 @@ export default function Home() {
                 envName: "NEXT_PUBLIC_CONTACT_EMAIL",
               },
             ].map(({ label, href, icon: Icon, envName }) => (
-              <a
-                aria-label={
-                  href
-                    ? label
-                    : `${label} is not configured; open the contact form`
-                }
-                href={href ?? "#contact"}
-                key={label}
-                title={href ? label : `Set ${envName} to configure ${label}`}
-                {...(href && !href.startsWith("mailto:")
-                  ? { target: "_blank", rel: "noreferrer" }
-                  : {})}
-              >
-                <Icon size={16} strokeWidth={1.5} aria-hidden="true" />
-              </a>
+              <Magnetic key={label}>
+                <a
+                  aria-label={
+                    href
+                      ? label
+                      : `${label} is not configured; open the contact form`
+                  }
+                  href={href ?? "#contact"}
+                  title={href ? label : `Set ${envName} to configure ${label}`}
+                  {...(href && !href.startsWith("mailto:")
+                    ? { target: "_blank", rel: "noreferrer" }
+                    : {})}
+                >
+                  <Icon size={16} strokeWidth={1.5} aria-hidden="true" />
+                </a>
+              </Magnetic>
             ))}
           </nav>
           <a href="#top" className="footer-top">

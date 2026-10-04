@@ -74,9 +74,18 @@ main {
   overflow: clip;
 }
 
-main > :not(.ambient-particles):not(.grain) {
+main
+  > :not(.ambient-particles):not(.atmospheric-bg):not(.grain):not(.site-header) {
   position: relative;
   z-index: 1;
+}
+
+.atmospheric-bg {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  opacity: 0.82;
+  pointer-events: none;
 }
 
 .ambient-particles {
@@ -211,7 +220,18 @@ main > :not(.ambient-particles):not(.grain) {
   border-bottom: 1px solid rgb(242 239 233 / 9%);
   background: rgb(20 17 16 / 82%);
   backdrop-filter: blur(14px);
-  transform: translateX(-50%);
+  transition:
+    background-color 260ms ease,
+    border-color 260ms ease,
+    backdrop-filter 260ms ease,
+    scale 260ms ease;
+}
+
+.site-header.is-scrolled {
+  border-color: rgb(242 239 233 / 13%);
+  background: rgb(20 17 16 / 76%);
+  backdrop-filter: blur(18px);
+  scale: 0.985;
 }
 
 .wordmark {
@@ -239,6 +259,24 @@ main > :not(.ambient-particles):not(.grain) {
   gap: clamp(1.4rem, 3vw, 2.75rem);
   color: var(--color-taupe);
   font-size: 0.72rem;
+}
+
+.main-nav a {
+  position: relative;
+  padding-block: 0.65rem;
+}
+
+.main-nav a.is-active {
+  color: var(--color-parchment);
+}
+
+.main-nav__indicator {
+  position: absolute;
+  right: 0;
+  bottom: 0.2rem;
+  left: 0;
+  height: 1px;
+  background: var(--color-rust);
 }
 
 .main-nav a,
@@ -344,6 +382,10 @@ main > :not(.ambient-particles):not(.grain) {
   justify-content: space-between;
   gap: 2rem;
   margin-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.hero__magnetic {
+  flex: 0 0 auto;
 }
 
 .hero__intro {
@@ -561,6 +603,8 @@ main > :not(.ambient-particles):not(.grain) {
 
 .project-card {
   min-width: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .project-card--flowstate {
@@ -586,6 +630,10 @@ main > :not(.ambient-particles):not(.grain) {
   color: inherit;
   cursor: pointer;
   text-align: left;
+}
+
+.project-card__button:focus-visible {
+  outline-offset: 6px;
 }
 
 .project-art {
@@ -759,7 +807,7 @@ main > :not(.ambient-particles):not(.grain) {
 }
 
 .project-card__button:hover .project-screen {
-  transform: scale(1.025) rotate(-0.5deg);
+  transform: scale(1.05);
 }
 
 .project-screen__top {
@@ -1457,6 +1505,7 @@ main > :not(.ambient-particles):not(.grain) {
 
 .project-card__overlay {
   position: absolute;
+  z-index: 3;
   inset: 0;
   display: flex;
   align-items: end;
@@ -1469,9 +1518,44 @@ main > :not(.ambient-particles):not(.grain) {
   transition: opacity 240ms ease;
 }
 
+.project-card__shade {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: rgb(20 17 16 / 16%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .project-card__button:hover .project-card__overlay,
 .project-card__button:focus-visible .project-card__overlay {
   opacity: 1;
+}
+
+.project-card__button:hover .project-card__shade,
+.project-card__button:focus-visible .project-card__shade {
+  opacity: 1;
+}
+
+.project-screen {
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.text-reveal {
+  overflow: visible;
+}
+
+.text-reveal__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.text-reveal__word {
+  display: inline-block;
+  will-change: transform, opacity;
 }
 
 .project-card__meta {
@@ -2102,6 +2186,10 @@ main > :not(.ambient-particles):not(.grain) {
 
   .project-card__overlay {
     opacity: 1;
+  }
+
+  .project-card__shade {
+    opacity: 0.16;
   }
 }
 

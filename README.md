@@ -4,12 +4,13 @@ A responsive, editorial-style developer portfolio built with Next.js, Tailwind C
 
 ## Features
 
-- Cinematic hero with a muted warm palette, subtle animated particles, and film grain
+- Cinematic hero with a low-resolution interactive atmosphere canvas, subtle particles, and film grain
+- Magnetic CTA/social controls, spring-driven project-card tilt, and masked heading reveals
 - First-visit intro with a skip action and reduced-motion support
 - Responsive About, Services, Projects, Tech Stack, Contact, and footer sections
 - Four individual, statically generated project case studies
 - Accessible project navigation, contact form validation, and keyboard-friendly controls
-- Reduced-motion-aware reveals, custom cursor, smooth scrolling, and status indicator
+- Scroll-aware floating navigation, reduced-motion-aware animation, custom cursor, smooth scrolling, and status indicator
 
 ## Projects
 

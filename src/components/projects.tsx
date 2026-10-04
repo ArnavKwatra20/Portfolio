@@ -1,6 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { type PointerEvent } from "react";
 import { Reveal } from "./motion-shell";
+import TextReveal from "./TextReveal";
 import { projects, type PortfolioProject } from "@/lib/projects";
 
 function ProjectArtwork({ project }: { project: PortfolioProject }) {
@@ -79,11 +89,68 @@ function ProjectArtwork({ project }: { project: PortfolioProject }) {
           </span>
         )}
       </span>
+      <span className="project-card__shade" aria-hidden="true" />
       <span className="project-card__overlay">
         <span>Read the case study</span>
         <ArrowUpRight size={18} strokeWidth={1.4} />
       </span>
     </span>
+  );
+}
+
+function ProjectCard({ project }: { project: PortfolioProject }) {
+  const prefersReducedMotion = useReducedMotion();
+  const targetX = useMotionValue(0);
+  const targetY = useMotionValue(0);
+  const rotateX = useSpring(targetX, { damping: 24, stiffness: 180, mass: 0.35 });
+  const rotateY = useSpring(targetY, { damping: 24, stiffness: 180, mass: 0.35 });
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (prefersReducedMotion || event.pointerType !== "mouse") return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const relativeX = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const relativeY = (event.clientY - bounds.top) / bounds.height - 0.5;
+    targetX.set(relativeY * -5);
+    targetY.set(relativeX * 5);
+  };
+
+  const resetTilt = () => {
+    targetX.set(0);
+    targetY.set(0);
+  };
+
+  return (
+    <motion.div
+      className={`project-card project-card--${project.art}`}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetTilt}
+      style={{
+        rotateX,
+        rotateY,
+        transformPerspective: 1000,
+        transformStyle: "preserve-3d",
+      }}
+    >
+      <Link
+        className="project-card__button"
+        href={`/work/${project.slug}`}
+        aria-label={`Read the ${project.name} case study`}
+      >
+        <ProjectArtwork project={project} />
+        <span className="project-card__meta">
+          <span>
+            <span className="project-card__number">{project.number}</span>
+            <span className="project-card__name">{project.name}</span>
+          </span>
+          <span className="project-card__type">
+            {project.type}
+            {project.status === "In development" && (
+              <span className="project-card__coming">Coming soon</span>
+            )}
+          </span>
+        </span>
+      </Link>
+    </motion.div>
   );
 }
 
@@ -93,7 +160,7 @@ export default function Projects() {
       <Reveal className="section-heading work__heading">
         <div>
           <span className="eyebrow">Selected work</span>
-          <h2>Thoughtful work, made real.</h2>
+          <TextReveal>Thoughtful work, made real.</TextReveal>
         </div>
         <p>
           A mix of shipped products and ideas in progress, shaped around real
@@ -102,30 +169,8 @@ export default function Projects() {
       </Reveal>
       <div className="project-grid">
         {projects.map((project, index) => (
-          <Reveal
-            key={project.slug}
-            delay={index * 0.08}
-            className={`project-card project-card--${project.art}`}
-          >
-            <Link
-              className="project-card__button"
-              href={`/work/${project.slug}`}
-              aria-label={`Read the ${project.name} case study`}
-            >
-              <ProjectArtwork project={project} />
-              <span className="project-card__meta">
-                <span>
-                  <span className="project-card__number">{project.number}</span>
-                  <span className="project-card__name">{project.name}</span>
-                </span>
-                <span className="project-card__type">
-                  {project.type}
-                  {project.status === "In development" && (
-                    <span className="project-card__coming">Coming soon</span>
-                  )}
-                </span>
-              </span>
-            </Link>
+          <Reveal key={project.slug} delay={index * 0.08}>
+            <ProjectCard project={project} />
           </Reveal>
         ))}
       </div>
