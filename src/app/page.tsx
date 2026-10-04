@@ -56,7 +56,34 @@ const technologies = [
   "Framer Motion",
 ];
 
-const emailAddress = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
+const deliverySteps = [
+  {
+    number: "01",
+    day: "Day 1",
+    title: "Read",
+    description: "I get to know your brief, goals, and the people you want to reach.",
+  },
+  {
+    number: "02",
+    day: "Day 1",
+    title: "Evaluate",
+    description: "We align on scope, content, and the right direction before I build.",
+  },
+  {
+    number: "03",
+    day: "Days 2–3",
+    title: "Produce",
+    description: "I build, refine, and prepare the finished experience for launch.",
+  },
+];
+
+const emailAddress =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kwatra.arnav11@gmail.com";
+const githubUrl =
+  process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com/ArnavKwatra20";
+const linkedinUrl =
+  process.env.NEXT_PUBLIC_LINKEDIN_URL ??
+  "https://www.linkedin.com/in/arnav-kwatra-003788292/";
 
 export default function Home() {
   return (
@@ -204,6 +231,30 @@ export default function Home() {
           </div>
         </section>
 
+        <section
+          className="delivery-section section-wrap"
+          aria-labelledby="delivery-title"
+        >
+          <Reveal className="delivery-section__heading">
+            <span className="eyebrow">A clear path to launch</span>
+            <TextReveal id="delivery-title">
+              From first read to final production in 2–3 working days.
+            </TextReveal>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <ol className="delivery-timeline">
+              {deliverySteps.map((step) => (
+                <li className="delivery-timeline__step" key={step.number}>
+                  <span className="delivery-timeline__number">{step.number}</span>
+                  <span className="delivery-timeline__day">{step.day}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </section>
+
         <section className="contact section-wrap section-space" id="contact">
           <Reveal className="contact__intro">
             <span className="eyebrow">Have something in mind?</span>
@@ -224,28 +275,16 @@ export default function Home() {
               ) : (
                 <span>Email details coming soon</span>
               )}
-              {process.env.NEXT_PUBLIC_GITHUB_URL && (
-                <a
-                  href={process.env.NEXT_PUBLIC_GITHUB_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Github size={14} strokeWidth={1.5} />
-                  GitHub
-                  <ArrowUpRight size={12} />
-                </a>
-              )}
-              {process.env.NEXT_PUBLIC_LINKEDIN_URL && (
-                <a
-                  href={process.env.NEXT_PUBLIC_LINKEDIN_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Linkedin size={14} strokeWidth={1.5} />
-                  LinkedIn
-                  <ArrowUpRight size={12} />
-                </a>
-              )}
+              <a href={githubUrl} target="_blank" rel="noreferrer">
+                <Github size={14} strokeWidth={1.5} />
+                GitHub
+                <ArrowUpRight size={12} />
+              </a>
+              <a href={linkedinUrl} target="_blank" rel="noreferrer">
+                <Linkedin size={14} strokeWidth={1.5} />
+                LinkedIn
+                <ArrowUpRight size={12} />
+              </a>
             </div>
           </Reveal>
           <Reveal delay={0.1} className="contact__form-wrap">
@@ -269,13 +308,13 @@ export default function Home() {
               },
               {
                 label: "GitHub",
-                href: process.env.NEXT_PUBLIC_GITHUB_URL,
+                href: githubUrl,
                 icon: Github,
                 envName: "NEXT_PUBLIC_GITHUB_URL",
               },
               {
                 label: "LinkedIn",
-                href: process.env.NEXT_PUBLIC_LINKEDIN_URL,
+                href: linkedinUrl,
                 icon: Linkedin,
                 envName: "NEXT_PUBLIC_LINKEDIN_URL",
               },

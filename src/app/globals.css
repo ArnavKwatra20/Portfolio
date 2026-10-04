@@ -1550,6 +1550,8 @@ main
 .text-reveal__mask {
   display: inline-block;
   overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
   vertical-align: bottom;
 }
 
@@ -1763,6 +1765,66 @@ main
   width: 1px;
   height: 13px;
   background: rgb(242 239 233 / 16%);
+}
+
+.delivery-section {
+  padding-top: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.delivery-section__heading {
+  max-width: 680px;
+  margin-bottom: 2.25rem;
+}
+
+.delivery-section__heading h2 {
+  margin: 0.8rem 0 0;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.delivery-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.delivery-timeline__step {
+  min-width: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgb(242 239 233 / 18%);
+}
+
+.delivery-timeline__number,
+.delivery-timeline__day {
+  color: var(--color-taupe);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.delivery-timeline__day {
+  display: block;
+  margin-top: 0.65rem;
+  color: var(--color-rust);
+}
+
+.delivery-timeline__step h3 {
+  margin: 0.35rem 0 0.4rem;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+}
+
+.delivery-timeline__step p {
+  margin: 0;
+  color: var(--color-taupe);
+  font-size: 0.64rem;
+  line-height: 1.7;
 }
 
 .contact-form {
@@ -2162,6 +2224,34 @@ main
   .contact-form__bottom {
     align-items: flex-start;
     flex-direction: column-reverse;
+  }
+
+  .delivery-timeline {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-left: 0.75rem;
+    border-left: 1px solid rgb(242 239 233 / 18%);
+  }
+
+  .delivery-timeline__step {
+    position: relative;
+    padding: 0 0 1.25rem 0.9rem;
+    border-top: 0;
+  }
+
+  .delivery-timeline__step::before {
+    position: absolute;
+    top: 0.22rem;
+    left: -0.99rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-rust);
+    content: "";
+  }
+
+  .delivery-timeline__day {
+    margin-top: 0.35rem;
   }
 
   .site-footer {
